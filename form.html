@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22100122 김세현학부생 form.html화면</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        #wrapper {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            height: 40px;
+            padding: 0 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100px;
+            height: 40px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+        }
+        #addBtn {
+            background-color: #28a745;
+        }
+        #clearBtn {
+            background-color: #dc3545;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        h2 {
+            margin-top: 20px;
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <h1>Dynamic Web Page.</h1>
+        
+        <input type="text" id="textField" placeholder="추가하고 싶은 내용을 입력하세요.">
+        <button id="addBtn">add</button>
+        <button id="clearBtn">delete</button>
+        
+        <h2>list:</h2>
+        <ul id="listDisplay"></ul>
+    </div>
+    <script>
+        window.onload = function() {
+            let items = []; // 배열 초기화
+
+            const textField = document.getElementById('textField');
+            const addBtn = document.getElementById('addBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const listDisplay = document.getElementById('listDisplay');
+
+            function refreshList() {
+                listDisplay.innerHTML = ''; // 리스트 초기화
+
+                items.forEach(element => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = element;
+                    listDisplay.appendChild(listItem);
+                });
+            }
+
+            function addItem() {
+                const input = textField.value.trim(); // 입력값 가져오기
+                const parsedItems = input.split(',').map(entry => entry.trim()); // 쉼표로 분리
+
+                parsedItems.forEach(entry => {
+                    if (entry) {
+                        items.push(entry); // 배열에 추가
+                    }
+                });
+
+                textField.value = ''; // 입력 필드 비우기
+                refreshList(); // 리스트 갱신
+            }
+
+            function clearItems() {
+                items = []; // 배열 비우기
+                refreshList(); // 리스트 갱신
+            }
+
+            addBtn.addEventListener('click', addItem);
+            clearBtn.addEventListener('click', clearItems);
+        };
+    </script>
+</body>
+</html>

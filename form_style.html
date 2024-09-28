@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22100122 김세현 학부생 form_style.html</title>
+</head>
+<style>
+    body {
+        background-color: #f5f5f5;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    main {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    #top {
+        text-align: center;
+        background-color: rgba(217, 150, 150, 0.257);
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    fieldset {
+        border: 2px solid #a1c4fd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    #sugangpage {
+        float: right;
+        width: 280px;
+        background-color: rgba(108, 86, 56, 0.2);
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 10px;
+    }
+
+    #cart_subject {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .subjects {
+        list-style-type: lower-roman;
+        padding-left: 20px;
+    }
+
+    .subjects li {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    #total {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    #apply {
+        text-align: center;
+        align-items: none;
+    }
+
+    #creditform {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    #caution {
+        background-color: rgba(84, 44, 44, 0.1);
+        border-radius: 8px;
+    }
+    #content {
+        width: 600px;
+    }
+
+    .h3 {
+        text-align: center;
+    }
+
+    form div {
+        margin-bottom: 15px;
+    }
+
+    form label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .star {
+        color: red;
+    }
+    form input,
+    form select,
+    form textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    form button {
+        background-color: #4ca0af;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    form button:hover {
+        background-color: #4578a0;
+    }
+
+    #submit {
+        width: 100%;
+    }
+    footer {
+        text-align: center;
+        border-radius: 8px;
+        background-color: rgb(228, 194, 218);
+        color: #fff;
+        padding: 10px;
+        position: relative;
+        bottom: 0;
+        width: 92.5%
+    }
+
+    footer a {
+        color: blue
+
+    }
+
+    footer a:hover {
+        text-decoration: underline;
+        color: black;
+    }
+    #footer {
+        justify-content: center;
+        gap: 50px;
+        display: flex;
+        list-style-type: none;
+    }
+    #hidden {
+        visibility: hidden;
+        width: 200px;
+    }
+</style>
+<body>
+    <main>
+        <div id="top">
+            <h2>All In One</h2>
+            <p>해당 페이지에서 수강신청, 기숙사 신청, 푸드포인트를 한 번에 신청하실 수 있습니다.</p>
+        </div>
+
+        <div id="caution">
+            <fieldset>      <!--fieldset 1번 사용-->
+                <legend>수강신청 간 주의사항</legend>   <!-- legend 1번 사용-->
+                - Paper(페이퍼) 접수가 없음. 수상신청 사이트와 수강대기신청 시스템만을 이용하여 수강신청이 진행됩니다. <br/><br/>
+                - 수강신청취소지연제에 따라 정원초과 과목에 대해 매일 9시/12시/15시/18시 4차례 여석 발생시 수강신청 가능합니다 <br/><br/>
+                - 김세진 교수님의 오픈소스 스튜디오는 한동대학생은 필수이수 과목입니다. (명강의)
+            </fieldset>
+        </div>
+
+        <div id="sugangpage">
+            <h2 id="cart_subject">Your cart</h2>
+            <ul class="subjects">
+                <li>
+                    <div>
+                        <h6>Discrete Mathematics</h6>
+                        <small>a major class</small>
+                    </div>
+                    <span>3 Credits</span>
+                </li>
+                <li>
+                    <div>
+                        <h6>Data Structure</h6>
+                        <small>a major class</small>
+                    </div>
+                    <span>3 Credits</span>
+                </li>
+                <li>
+                    <div>
+                        <h6>Java Programming</h6>
+                        <small>a major class</small>
+                    </div>
+                    <span>3 Credits</span>
+                </li>
+                <li>
+                    <div>
+                        <h6>Special Class</h6>
+                        <small>open source studio class</small>
+                    </div>
+                    <span>3 Credits</span>
+                </li>
+            </ul>
+            <div id="total">
+                <h3>Total Credits: 12 Credits</h3>
+            </div>
+            <form name="form1">                     <!--form1-->
+                <div id="creditform">
+                    <input type="number" name="credit" placeholder="추가하고 싶은 학점 수" min="0">  <!--number type 1번 사용-->
+                    <button type="submit" id="apply">적용</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="content">
+            <h3 class="h3">기숙사 입주 전 인적사항 기입</h3>
+            <p>( <span class="star">*</span> 표시는 필수 입력 사항입니다.)</p>
+            <form name="form2">           <!--form2 메인 인적사항기입 폼-->
+                <div>
+                    <label for="lastName">성: <span class="star">*</span></label>
+                    <input type="text" id="lastName" name="lastName">  <!--text type 1번 사용-->
+                </div>
+
+                <div>
+                    <label for="firstName">이름: <span class="star">*</span></label>
+                    <input type="text" id="firstName" name="firstName"> <!--text type 2번 사용-->
+                </div>
+
+                <div>
+                    <label for="username">불리고 싶은 별명:</label>
+                    <input type="text" id="username">       <!--text type 3번 사용-->
+                </div>
+
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email">         <!--email type 1번 사용-->
+                </div>
+
+                <div>
+                    <label for="sexualType">성별:</label>
+                    <select id="sexualType">                <!--select 1번 사용-->
+                        <option>남자</option>               <!--option 1-2번 사용-->
+                        <option>여자</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="age">나이: <span class="star">*</span></label>
+                    <input type="number" id="age" name="age" required min="1">      <!--number type 2번 사용-->
+                </div>
+
+                <div>
+                    <label for="country">국적:</label>
+                    <select id="country">                   <!--select 2번 사용-->
+                        <option value="한국">한국</option>       <!--option 3-10번 사용-->
+                        <option>중국</option>
+                        <option>영국</option>
+                        <option>러시아</option>
+                        <option>독일</option>
+                        <option>프랑스</option>
+                        <option>인도네시아</option>
+                        <option>기타</option>
+                    </select>
+                </div>
+
+                <p>(도시랑 우편번호는 국적이 한국일 경우에만 작성해주세요.)</p>
+
+                <div>
+                    <label for="city">도시:</label>
+                    <select id="city">                      <!--select 3번 사용-->
+                        <optgroup label="수도">              <!--optgroup 1번 사용-->
+                            <option>서울특별시</option>          <!--option 11번 사용-->
+                        </optgroup> 
+                        <optgroup label="광역시">            <!--optgroup 2번 사용-->
+                            <option>대전광역시</option>          <!--option 12-16번 사용-->
+                            <option>울산광역시</option>
+                            <option>대구광역시</option>
+                            <option>광주광역시</option>
+                            <option>부산광역시</option>
+                        </optgroup>
+                        <optgroup label="그 외 지역">        <!--optgroup 3번 사용-->
+                            <option>경기도</option>          <!--option 17-25번 사용-->
+                            <option>강원도</option>
+                            <option>충청북도</option>
+                            <option>충청남도</option>
+                            <option>전라북도</option>
+                            <option>전라남도</option>
+                            <option>경상북도</option>
+                            <option>경상남도</option>
+                            <option>제주도</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="zip">우편번호:</label>
+                    <input type="number" id="zip" placeholder="34386" min="10000" max="99999">      <!--number type 3번 사용-->
+                </div>
+
+                <div>
+                    <input type="checkbox" id="same-address" required>   <!--checkbox type 1번 사용-->
+                    <label for="same-address" id="agree">개인정보 수집에 동의합니다. <span class="star">&nbsp*</span></label>
+                </div>
+
+                <div>
+                    <input type="checkbox" id="save-info">      <!--checkbox type 2번 사용-->
+                    <label for="save-info">다음에도 이 주소 사용하기.</label>
+                </div>
+
+                <div>
+                    <label for="start">기숙사 입주 날짜: <span class="star">*</span></label>
+                    <input type="date" id="start" name="trip-start" value="2024-08-26" min="2024-01-01" max="2024-12-31" required>      <!--date type 1번 사용-->
+                </div>
+
+                <h3 class="h3">푸드포인트 신청</h3>
+
+                <div>
+                    <label for="credit">신용카드</label>
+                    <input id="credit" name="paymentMethod" type="radio" checked required>  <!--radio type 1번 사용-->
+  
+                    <label for="debit">체크카드</label>
+                    <input id="debit" name="paymentMethod" type="radio" required>       <!--radio type 2번 사용-->
+                   
+                    <label for="kakaopay">카카오페이</label>
+                    <input id="kakaopay" name="paymentMethod" type="radio" required>        <!--radio type 3번 사용-->
+                </div>
+                
+                    <label for="cc-name">카드회사: <span class="star">*</span></label>
+                    <input type="text" id="cc-name" name="cc-name" required pattern="[가-힣\s]{2,}">        <!--text type 4번 사용-->
+                    <small>회사명을 전부 적어주세요 (신한은행, 국민은행)</small><br><br>
+                
+                <div>
+                    <label for="cc-number">카드 번호: <span class="star">*</span></label>
+                    <input type="text" id="cc-number" name="cc-number" required pattern="\d{4}-\d{4}-\d{4}-\d{4}">  <!--text type 5번 사용-->
+                </div>
+
+                <div>
+                    <label for="cc-expiration">만료일자: <span class="star">*</span></label>
+                    <input type="text" id="cc-expiration" name="cc-expiration" required pattern="\d{2}/\d{2}">      <!--text type 6번 사용-->
+                </div>
+
+                <div>
+                    <label for="cc-cvc">CVC: <span class="star">*</span></label>
+                    <input type="text" id="cc-cvc" name="cc-cvc" required pattern="\d{3}">       <!--text type 7번 사용-->
+                </div>
+
+                <label>한동만나 기부 후원: XXX-YY-ZZZZZZC</label> <br>
+                <textarea id="honorcode" name="honorcode" rows="2" cols="50">한동만나는 경제적으로 어려운 학생들이 끼니를 거르지 않도록 후원자와 한동 공동체가 아너코드로 함께 채워가는 사랑의 위로이자, 따뜻한 한 끼입니다.</textarea>      <!--textarea type 1번 사용-->
+                <br>
+                <button type="submit" id="submit" value="저장">신청</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>2000-2024 Dormitory administrative office</p>
+        <ul id="footer">
+            <li><a href="#">Click Me</a></li>
+            <li><a href="#">EasterEgg</a></li>
+            <li><a href="#">Support</a></li>
+        </ul>
+        <input type="text" id="hidden" placeholder="당신이 OSS에서 받고 싶은 학점은?"></input>       <!--text type 8번 사용-->
+    </footer>
+</body>
+</html>
