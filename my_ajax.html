@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학생 관리 시스템</title>
+</head>
+<body>
+    <h1>학생 관리 시스템</h1>
+    <button id="btnStu">학생 조회</button>
+    <input type="text" id="name" placeholder="이름">
+    <input type="email" id="email" placeholder="이메일">
+    <input type="text" id="phone" placeholder="전화번호">
+    <input type="text" id="website" placeholder="웹사이트">
+    <input type="text" id="address" placeholder="주소 (시/구/도로명)">
+    <button id="btnAdd">학생 추가</button>
+    <button id="btnSave" style="display: none;">저장</button>
+    <div id="contents"></div>
+    
+    <script>
+    let editingId = null;
+
+    window.onload = function() {
+        let btnStu = document.getElementById("btnStu");
+        let btnAdd = document.getElementById("btnAdd");
+        let btnSave = document.getElementById("btnSave");
+        
+        btnStu.addEventListener("click", getStudents);
+        btnAdd.addEventListener("click", postData);
+        btnSave.addEventListener("click", saveData);
+    }
+
+    function getStudents() {
+        let contents = document.getElementById("contents");
+        const xhr = new XMLHttpRequest();
+
+        xhr.open("GET", "http://localhost:3000/students");
+        xhr.setRequestHeader("content-type", "application/json");
+        xhr.send();
+
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                const res = JSON.parse(xhr.response);
+                contents.innerHTML = makeList(res);
+            } else {
+                console.error(xhr.status, xhr.statusText);
+            }
+        }    
+    }
+
+    function makeList(data) {
+        let str = "<ul>";
+        data.forEach(student => {
+            str += `<li>
+                        <strong>${student.name}</strong><br>
+                        이메일: ${student.email}<br>
+                        전화번호: ${student.phone}<br>
+                        웹사이트: <a href="${student.website}" target="_blank">${student.website}</a><br>
+                        주소: ${student.province} ${student.city} ${student.district} ${student.street} (${student.zipcode})<br>
+                        <button onclick="editData(${student.id}, '${student.name}', '${student.email}', '${student.phone}', '${student.website}', '${student.province}', '${student.city}', '${student.district}', '${student.street}')">수정</button>
+                        <button onclick="deleteData(${student.id})">삭제</button>
+                    </li>`;
+        });
+        str += "</ul>";
+        return str;
+    }
+
+function postData() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+    let website = document.getElementById("website").value;
+    let address = document.getElementById("address").value.split(" ");
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://localhost:3000/students");
+    xhr.setRequestHeader("content-type", "application/json");
+    xhr.send();
+
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            const students = JSON.parse(xhr.response);
+            const maxId = students.reduce((max, student) => Math.max(max, parseInt(student.id)), 0);
+            const newId = maxId + 1;
+
+            const data = {
+                id: newId.toString(),
+                name: name,
+                email: email,
+                phone: phone,
+                website: website,
+                province: address[0] || "",
+                city: address[1] || "",
+                district: address[2] || "",
+                street: address[3] || "",
+                zipcode: ""
+            };
+
+            const postXhr = new XMLHttpRequest();
+            postXhr.open("POST", "http://localhost:3000/students");
+            postXhr.setRequestHeader("content-type", "application/json; charset=UTF-8");
+            postXhr.send(JSON.stringify(data));
+            
+            postXhr.onload = () => {
+                if (postXhr.status === 201 || postXhr.status === 200) {
+                    clearInputs();
+                    getStudents();
+                } else {
+                    console.error(postXhr.status, postXhr.statusText);
+                }
+            };
+        } else {
+            console.error(xhr.status, xhr.statusText);
+        }
+    };
+}
+
+    function editData(id, name, email, phone, website, province, city, district, street) {
+        document.getElementById("name").value = name;
+        document.getElementById("email").value = email;
+        document.getElementById("phone").value = phone;
+        document.getElementById("website").value = website;
+        document.getElementById("address").value = `${province} ${city} ${district} ${street}`;
+
+        editingId = id;
+        document.getElementById("btnAdd").style.display = "none";
+        document.getElementById("btnSave").style.display = "inline";
+    }
+
+    function saveData() {
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let phone = document.getElementById("phone").value;
+        let website = document.getElementById("website").value;
+        let address = document.getElementById("address").value.split(" ");
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("PUT", "http://localhost:3000/students/" + editingId);
+        xhr.setRequestHeader("content-type", "application/json; charset=UTF-8");
+
+        const data = {
+            name: name,
+            email: email,
+            phone: phone,
+            website: website,
+            province: address[0] || "",
+            city: address[1] || "",
+            district: address[2] || "",
+            street: address[3] || ""
+        };
+
+        xhr.send(JSON.stringify(data));
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                clearInputs();
+                editingId = null;
+
+                document.getElementById("btnAdd").style.display = "inline";
+                document.getElementById("btnSave").style.display = "none";
+
+                getStudents();
+            } else {
+                console.error(xhr.status, xhr.statusText);
+            }
+        }
+    }
+
+    function clearInputs() {
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("website").value = "";
+        document.getElementById("address").value = "";
+    }
+
+    function deleteData(id) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("DELETE", "http://localhost:3000/students/" + id);
+        xhr.setRequestHeader("content-type", "application/json");
+        
+        xhr.send();
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                getStudents();
+            } else {
+                console.error(xhr.status, xhr.statusText);
+            }
+        }
+    }
+    </script>
+</body>
+</html>
